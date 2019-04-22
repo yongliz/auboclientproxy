@@ -5,12 +5,13 @@ import json
 db_file = '/home/zhaoyongli/workspace/AuboApplicationBuildDir/OUR4.0-I5-Build/bin/Database/tool_coord_param.db'
 
 
-@route('/api/gettool', method=['GET', 'POST'])
-def gettool():
+@route('/api/gettools', method=['GET', 'POST'])
+def gettools():
 
     db_conn = sqlite3.connect(db_file)
     db_cursor = db_conn.cursor()
-    db_cursor.execute("SELECT * FROM tool_param_view")
+    db_cursor.execute(
+        "SELECT tool_name, end_pos_x, end_pos_y, end_pos_z, end_ori_rx, end_ori_ry, end_ori_rz FROM tool_param_view")
     records = db_cursor.fetchall()
     db_cursor.close()
 
@@ -21,16 +22,16 @@ def gettool():
         for record in records:
             tmp = []
             # tool name
-            tmp.append({"tool_name": record[0]})
-            # pos
-            tmp.append({"x": record[2]})
-            tmp.append({"y": record[3]})
-            tmp.append({"z": record[3]})
-            # ori
-            tmp.append({"rx": record[4]})
-            tmp.append({"ry": record[5]})
-            tmp.append({"rz": record[6]})
-            # add record
+            tmp.append({"tool_name": record[0],
+                        # pos
+                        "x": record[1],
+                        "y": record[2],
+                        "z": record[3],
+                        # ori
+                        "rx": record[4],
+                        "ry": record[5],
+                        "rz": record[6]
+                        })
             data.append(tmp)
 
         # print(data)
@@ -38,8 +39,8 @@ def gettool():
         # return json.dumps(data, default=lambda obj: obj.__dict__, sort_keys=True)
 
 
-@route('/api/getcoord', method=['GET', 'POST'])
-def getcoord():
+@route('/api/getcoords', method=['GET', 'POST'])
+def getcoords():
 
     db_conn = sqlite3.connect(db_file)
     db_cursor = db_conn.cursor()
@@ -54,23 +55,24 @@ def getcoord():
         for record in records:
             tmp = []
             # coord name
-            tmp.append({"coord_name": record[0]})
-            # method
-            tmp.append({"method": record[1]})
-            # 3 waypoints
-            tmp.append({"point1": record[2]})
-            tmp.append({"point2": record[3]})
-            tmp.append({"point3": record[4]})
-            # tool name
-            tmp.append({"tool_name": record[5]})
-            # pos
-            tmp.append({"x": record[6]})
-            tmp.append({"y": record[7]})
-            tmp.append({"z": record[8]})
-            # ori
-            tmp.append({"rx": record[9]})
-            tmp.append({"ry": record[10]})
-            tmp.append({"rz": record[11]})
+            tmp.append({"coord_name": record[0],
+                        # method
+                        "method": record[1],
+                        # 3 waypoints
+                        "point1": record[2],
+                        "point2": record[3],
+                        "point3": record[4],
+                        # tool name
+                        "tool_name": record[5],
+                        # pos
+                        "x": record[6],
+                        "y": record[7],
+                        "z": record[8],
+                        # ori
+                        "rx": record[9],
+                        "ry": record[10],
+                        "rz": record[11]
+                        })
             # add record
             data.append(tmp)
 
