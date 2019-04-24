@@ -34,7 +34,6 @@ def gettools():
                         })
             data.append(tmp)
 
-        # print(data)
         return json.dumps(data)
         # return json.dumps(data, default=lambda obj: obj.__dict__, sort_keys=True)
 
@@ -76,7 +75,6 @@ def getcoords():
             # add record
             data.append(tmp)
 
-        # print(data)
         return json.dumps(data)
 
 
